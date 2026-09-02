@@ -1,0 +1,72 @@
+<svg width="720" height="280" viewBox="0 0 720 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Dark Frame -->
+  <rect width="720" height="280" rx="16" fill="#0F1117" />
+  <rect x="0.5" y="0.5" width="719" height="279" rx="15.5" stroke="#242938" />
+
+  <!-- Title -->
+  <text x="32" y="42" font-family="system-ui, sans-serif" font-weight="700" font-size="18" fill="#F8FAFC">Meetrix Logo Icon Variations (Running Stitch "M")</text>
+  <text x="32" y="62" font-family="system-ui, sans-serif" font-size="12" fill="#94A3B8">Strict 2-Color Palette: Warm Charcoal (#0F1117) &amp; Copper Gold (#D9A05B). 100% Legible "M" at both large scale and 32px favicon size.</text>
+
+  <!-- VARIATION 1: Classic Sharp Stitched M -->
+  <g transform="translate(32, 90)">
+    <rect width="144" height="110" rx="12" fill="#161922" stroke="#242938" />
+    <text x="12" y="24" font-family="monospace" font-weight="700" font-size="10" fill="#D9A05B">VAR 1: Full Stitched M</text>
+    <!-- Large 48px -->
+    <rect x="16" y="38" width="48" height="48" rx="10" fill="#0F1117" stroke="#242938" />
+    <path d="M28 74V52L40 64L52 52V74" stroke="#D9A05B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 3.5" />
+    <!-- Favicon 32px -->
+    <rect x="80" y="46" width="32" height="32" rx="8" fill="#0F1117" stroke="#242938" />
+    <path d="M88 69V55L96 63L104 55V69" stroke="#D9A05B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.5 2.5" />
+    <text x="80" y="94" font-family="monospace" font-size="8" fill="#94A3B8">32px Favicon</text>
+  </g>
+
+  <!-- VARIATION 2: Stitched V-Crossbar M (Recommended) -->
+  <g transform="translate(196, 90)">
+    <rect width="144" height="110" rx="12" fill="#161922" stroke="#D9A05B" stroke-width="1.5" />
+    <text x="12" y="24" font-family="monospace" font-weight="700" font-size="10" fill="#D9A05B">VAR 2: Stitched V-Crossbar</text>
+    <!-- Large 48px -->
+    <rect x="16" y="38" width="48" height="48" rx="10" fill="#0F1117" stroke="#242938" />
+    <line x1="28" y1="52" x2="28" y2="72" stroke="#D9A05B" stroke-width="3.5" stroke-linecap="round" />
+    <line x1="52" y1="52" x2="52" y2="72" stroke="#D9A05B" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M28 52L40 64L52 52" stroke="#D9A05B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 3" />
+    <!-- Favicon 32px -->
+    <rect x="80" y="46" width="32" height="32" rx="8" fill="#0F1117" stroke="#242938" />
+    <line x1="88" y1="55" x2="88" y2="69" stroke="#D9A05B" stroke-width="2.5" stroke-linecap="round" />
+    <line x1="104" y1="55" x2="104" y2="69" stroke="#D9A05B" stroke-width="2.5" stroke-linecap="round" />
+    <path d="M88 55L96 63L104 55" stroke="#D9A05B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.5 2.5" />
+    <text x="80" y="94" font-family="monospace" font-size="8" fill="#94A3B8">32px Favicon</text>
+  </g>
+
+  <!-- VARIATION 3: Continuous Running Loop M -->
+  <g transform="translate(360, 90)">
+    <rect width="144" height="110" rx="12" fill="#161922" stroke="#242938" />
+    <text x="12" y="24" font-family="monospace" font-weight="700" font-size="10" fill="#D9A05B">VAR 3: Continuous Loop</text>
+    <!-- Large 48px -->
+    <rect x="16" y="38" width="48" height="48" rx="10" fill="#0F1117" stroke="#242938" />
+    <path d="M27 72V52C27 52 34 61 40 61C46 61 53 52 53 52V72" stroke="#D9A05B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 3.5" />
+    <!-- Favicon 32px -->
+    <rect x="80" y="46" width="32" height="32" rx="8" fill="#0F1117" stroke="#242938" />
+    <path d="M87.5 69V55C87.5 55 92 61 96 61C100 61 104.5 55 104.5 55V69" stroke="#D9A05B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 2.5" />
+    <text x="80" y="94" font-family="monospace" font-size="8" fill="#94A3B8">32px Favicon</text>
+  </g>
+
+  <!-- VARIATION 4: Precision Micro-Stitch M -->
+  <g transform="translate(524, 90)">
+    <rect width="144" height="110" rx="12" fill="#161922" stroke="#242938" />
+    <text x="12" y="24" font-family="monospace" font-weight="700" font-size="10" fill="#D9A05B">VAR 4: Precision Micro-Stitch</text>
+    <!-- Large 48px -->
+    <rect x="16" y="38" width="48" height="48" rx="10" fill="#0F1117" stroke="#242938" />
+    <path d="M28 72V52L40 63L52 52V72" stroke="#D9A05B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 3" />
+    <!-- Favicon 32px -->
+    <rect x="80" y="46" width="32" height="32" rx="8" fill="#0F1117" stroke="#242938" />
+    <path d="M88 69V55L96 62.5L104 55V69" stroke="#D9A05B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.8 2" />
+    <text x="80" y="94" font-family="monospace" font-size="8" fill="#94A3B8">32px Favicon</text>
+  </g>
+
+  <!-- CLEAN WORDMARK BANNER -->
+  <g transform="translate(32, 215)">
+    <rect width="656" height="45" rx="10" fill="#161922" stroke="#242938" />
+    <text x="16" y="27" font-family="monospace" font-weight="700" font-size="10" fill="#D9A05B">CLEAN SINGLE WORDMARK (NO .AI SUFFIX):</text>
+    <text x="250" y="30" font-family="system-ui, sans-serif" font-weight="800" font-size="22" fill="#F8FAFC" letter-spacing="-0.5">Meetrix</text>
+  </g>
+</svg>

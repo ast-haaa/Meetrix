@@ -1,0 +1,15 @@
+<svg width="180" height="44" viewBox="0 0 180 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon Background Shield -->
+  <rect width="38" height="38" y="3" rx="10" fill="#0F1117" />
+  <rect x="0.5" y="3.5" width="37" height="37" rx="9.5" stroke="#242938" />
+
+  <!-- Solid Outer Pillars of M -->
+  <line x1="10" y1="12" x2="10" y2="30" stroke="#D9A05B" stroke-width="3" stroke-linecap="round" />
+  <line x1="28" y1="12" x2="28" y2="30" stroke="#D9A05B" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Running-Stitch V-Crossbar Sewing Pillars Together -->
+  <path d="M10 12L19 21L28 12" stroke="#D9A05B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.5 3" />
+
+  <!-- Clean Single Wordmark (Plus Jakarta Sans, no .AI) -->
+  <text x="48" y="29" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="22" fill="#F8FAFC" letter-spacing="-0.5">Meetrix</text>
+</svg>

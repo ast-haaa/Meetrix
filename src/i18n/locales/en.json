@@ -1,0 +1,51 @@
+{
+  "common": {
+    "appName": "Meetrix",
+    "ingestAudio": "Ingest Audio Sync",
+    "searchPlaceholder": "Search decisions, owners, or action items (Press /)...",
+    "online": "100% ONLINE",
+    "status": "Engine Status",
+    "workflow": "WORKFLOW",
+    "loading": "Loading..."
+  },
+  "nav": {
+    "overview": "Overview",
+    "meetings": "Meetings",
+    "decisions": "Decisions",
+    "actionItems": "Action Items",
+    "teamReliability": "Team Reliability",
+    "adminControl": "Admin Control",
+    "integrations": "Integrations"
+  },
+  "dashboard": {
+    "tag": "OPERATIONS OVERVIEW",
+    "title": "Decisions & Owner Accountability Tracker",
+    "subtitle": "A reliable record of decisions made in meetings, who's responsible for them, and what hasn't been done yet.",
+    "primaryMetric": "PRIMARY METRIC • FOLLOW-THROUGH",
+    "completionRate": "Overall Decision Completion Rate",
+    "meetingsCount": "Meetings",
+    "staleDecisions": "Stale Decisions",
+    "pendingActions": "Pending Actions",
+    "allDiarized": "All Diarized",
+    "flaggedAmber": "Flagged in Amber",
+    "assignedOwners": "Assigned to Owners",
+    "recentMeetings": "Recent Meetings",
+    "viewAll": "View all →",
+    "viewQueue": "View queue →",
+    "transcript": "Transcript"
+  },
+  "timeline": {
+    "tag": "CROSS-MEETING TIMELINE",
+    "title": "Decision History Across Meetings",
+    "subtitle": "Visible stitch lines connecting where a decision was originally made to how it was evaluated in later meetings.",
+    "originMeeting": "ORIGIN MEETING",
+    "reviewMeeting": "REVIEW MEETING",
+    "staleAlert": "STALE ALERT IN AMBER",
+    "fulfilled": "FULFILLED"
+  },
+  "alert": {
+    "title": "UNACTED DECISION ALERT",
+    "subtitle": "No progress recorded across 2 meetings",
+    "action": "Assign Owner & Follow Up"
+  }
+}
