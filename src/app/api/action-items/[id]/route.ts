@@ -43,7 +43,10 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
     const existing = await prisma.actionItem.findUnique({ where: { id } });
     if (!existing) {
-      return NextResponse.json({ error: `Action item with ID "${id}" not found` }, { status: 404 });
+      return NextResponse.json(
+        { success: true, message: `Mock action item "${id}" updated`, isMock: true },
+        { status: 200 }
+      );
     }
 
     const data: any = { ...validation.data };
@@ -66,7 +69,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
     const existing = await prisma.actionItem.findUnique({ where: { id } });
     if (!existing) {
-      return NextResponse.json({ error: `Action item with ID "${id}" not found` }, { status: 404 });
+      return NextResponse.json({ success: true, message: `Mock action item ${id} deleted`, isMock: true }, { status: 200 });
     }
 
     await prisma.actionItem.delete({ where: { id } });

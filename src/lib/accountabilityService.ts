@@ -48,10 +48,8 @@ export async function calculateTeamAccountability(): Promise<OwnerAccountability
 
       for (const item of items) {
         if (item.status === 'COMPLETED') {
-          // If completed before or on due date
-          if (!item.dueDate || new Date(item.createdAt) <= new Date(item.dueDate)) {
-            completedOnTime++;
-          } else {
+          // If completed before or on due date, or no due date was set
+          if (!item.dueDate || new Date(item.updatedAt) <= new Date(item.dueDate)) {
             completedOnTime++;
           }
         } else if (item.status === 'OPEN' || item.status === 'IN_PROGRESS') {

@@ -80,12 +80,13 @@ export async function POST(req: NextRequest) {
     // Update TranscriptUtterances in Database with Final Speaker Labels
     let existingSpeakers = meeting.speakers;
     if (existingSpeakers.length === 0) {
+      const owners = await prisma.owner.findMany({ take: 2 });
       const spk0 = await prisma.meetingSpeaker.create({
-        data: { meetingId, speakerLabel: 'Speaker 0 (Priya)', ownerId: 'owner-1' },
+        data: { meetingId, speakerLabel: 'Speaker 0 (Priya)', ownerId: owners[0]?.id || null },
         include: { owner: true },
       });
       const spk1 = await prisma.meetingSpeaker.create({
-        data: { meetingId, speakerLabel: 'Speaker 1 (Arjun)', ownerId: 'owner-2' },
+        data: { meetingId, speakerLabel: 'Speaker 1 (Arjun)', ownerId: owners[1]?.id || null },
         include: { owner: true },
       });
       existingSpeakers = [spk0, spk1];

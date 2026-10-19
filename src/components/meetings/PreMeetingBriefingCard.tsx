@@ -77,8 +77,8 @@ export function PreMeetingBriefingCard() {
         priority: 'URGENT',
         assigneeName: 'Priya Sharma',
         assigneeAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
-        dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
-        createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: '2026-03-20T12:00:00.000Z',
+        createdAt: '2026-03-10T12:00:00.000Z',
       },
       {
         id: 'act-3',
@@ -90,8 +90,8 @@ export function PreMeetingBriefingCard() {
         priority: 'MEDIUM',
         assigneeName: 'Kavya Nair',
         assigneeAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-        dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
-        createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+        dueDate: '2026-03-22T12:00:00.000Z',
+        createdAt: '2026-03-12T12:00:00.000Z',
       },
     ],
   });
@@ -206,7 +206,7 @@ export function PreMeetingBriefingCard() {
             <div className="flex items-center justify-between text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider">
               <span className="flex items-center gap-2">
                 <Bookmark className="w-4 h-4 text-[#4F46E5]" />
-                <span>HERE'S WHERE THINGS STAND</span>
+                <span>HERE&apos;S WHERE THINGS STAND</span>
               </span>
               <span className="text-[#3730A3] text-[11px] font-mono font-bold bg-white px-3 py-1 rounded-lg border border-indigo-200 shadow-2xs">
                 TOPIC: #{selectedTopic.toUpperCase()}

@@ -1,18 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   CheckSquare,
-  Clock,
-  User,
-  Plus,
-  ExternalLink,
   CheckCircle2,
-  AlertCircle,
-  Sparkles,
   Send,
   Loader2,
   MessageSquare,
+  ArrowRight,
+  ArrowLeft,
+  Check,
+  RotateCcw,
 } from 'lucide-react';
 import { MOCK_ACTION_ITEMS } from '@/lib/mockData';
 import { ActionItemDTO } from '@/types';
@@ -22,6 +20,32 @@ export default function ActionItemsPage() {
   const [dispatchingId, setDispatchingId] = useState<string | null>(null);
   const [slackDispatchingId, setSlackDispatchingId] = useState<string | null>(null);
   const [notification, setNotification] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('/api/action-items')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.actionItems && data.actionItems.length > 0) {
+          setItems(data.actionItems);
+        }
+      })
+      .catch((err) => console.error('Failed to load action items:', err));
+  }, []);
+
+  const handleUpdateStatus = async (itemId: string, newStatus: 'OPEN' | 'IN_PROGRESS' | 'COMPLETED') => {
+    setItems((prev) =>
+      prev.map((i) => (i.id === itemId ? { ...i, status: newStatus } : i))
+    );
+    try {
+      await fetch(`/api/action-items/${itemId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+    } catch (err) {
+      console.error('Failed to update action item status:', err);
+    }
+  };
 
   const handleExportJira = async (item: ActionItemDTO) => {
     setDispatchingId(item.id);
@@ -82,7 +106,7 @@ export default function ActionItemsPage() {
   const completedItems = items.filter((i) => i.status === 'COMPLETED');
 
   return (
-    <div className="space-y-8 select-none pb-24">
+    <div className="space-y-8 select-none pb-24 font-sans">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
@@ -168,6 +192,16 @@ export default function ActionItemsPage() {
                     </button>
                   </div>
                 </div>
+
+                <div className="pt-1 flex justify-end">
+                  <button
+                    onClick={() => handleUpdateStatus(item.id, 'IN_PROGRESS')}
+                    className="text-[10px] text-[#4F46E5] font-mono font-bold hover:underline flex items-center gap-1"
+                  >
+                    <span>Start Task</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -189,11 +223,40 @@ export default function ActionItemsPage() {
                   <span className="px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase bg-amber-50 text-amber-700 border border-amber-200">
                     {item.priority}
                   </span>
+                  <span className="text-[10px] text-[#64748B] font-mono" suppressHydrationWarning>
+                    {new Date(item.createdAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })}
+                  </span>
                 </div>
 
                 <div>
                   <h4 className="text-sm font-sans font-bold text-[#1E1B4B]">{item.title}</h4>
                   <p className="text-xs text-[#475569] mt-1 font-medium">{item.description}</p>
+                </div>
+
+                <div className="pt-2 border-t border-indigo-100 flex items-center justify-between">
+                  <div className="flex items-center space-x-2 truncate">
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#3730A3] to-[#4F46E5] text-white text-[9px] font-bold flex items-center justify-center shrink-0 font-mono">
+                      {item.assigneeName?.charAt(0).toUpperCase() || '?'}
+                    </div>
+                    <span className="text-[11px] text-[#475569] font-mono font-bold truncate">{item.assigneeName}</span>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => handleUpdateStatus(item.id, 'OPEN')}
+                      className="px-2 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-mono font-bold flex items-center gap-1"
+                    >
+                      <ArrowLeft className="w-3 h-3" />
+                      <span>Back</span>
+                    </button>
+                    <button
+                      onClick={() => handleUpdateStatus(item.id, 'COMPLETED')}
+                      className="px-2.5 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-mono font-bold flex items-center gap-1"
+                    >
+                      <Check className="w-3 h-3 text-emerald-600" />
+                      <span>Complete</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -216,10 +279,24 @@ export default function ActionItemsPage() {
                   <span className="px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
                     COMPLETED
                   </span>
+                  <span className="text-[10px] text-[#64748B] font-mono" suppressHydrationWarning>
+                    {new Date(item.createdAt).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' })}
+                  </span>
                 </div>
 
                 <div>
                   <h4 className="text-sm font-sans font-bold text-[#1E1B4B] line-through">{item.title}</h4>
+                </div>
+
+                <div className="pt-2 border-t border-indigo-100 flex items-center justify-between">
+                  <span className="text-[11px] text-[#64748B] font-mono">Owner: {item.assigneeName}</span>
+                  <button
+                    onClick={() => handleUpdateStatus(item.id, 'OPEN')}
+                    className="text-[10px] text-indigo-600 hover:underline font-mono font-bold flex items-center gap-1"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Reopen</span>
+                  </button>
                 </div>
               </div>
             ))}

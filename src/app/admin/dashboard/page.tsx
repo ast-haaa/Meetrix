@@ -7,21 +7,19 @@ import {
   Users,
   Mic,
   GitMerge,
-  Send,
   History,
   Search,
   ArrowUpDown,
   CheckCircle2,
   RefreshCw,
   LogOut,
-  Terminal,
   Activity,
   Cpu,
   Database,
   Trash2,
   Zap,
   Info,
-  Sliders,
+  KeyRound,
 } from 'lucide-react';
 
 interface AuditLog {
@@ -72,8 +70,8 @@ export default function AdminDashboardPage() {
   const [primaryId, setPrimaryId] = useState('dec-1');
   const [secondaryId, setSecondaryId] = useState('dec-2');
 
-  const fetchAdminData = async () => {
-    setLoading(true);
+  const fetchAdminData = async (isManual = false) => {
+    if (isManual) setLoading(true);
     try {
       const [statsRes, logsRes] = await Promise.all([
         fetch('/api/admin/stats'),
@@ -101,7 +99,7 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
-    fetchAdminData();
+    fetchAdminData(false);
   }, []);
 
   const handleLogout = async () => {
@@ -254,7 +252,7 @@ export default function AdminDashboardPage() {
 
         <div className="flex items-center space-x-2 shrink-0 font-mono text-xs">
           <button
-            onClick={fetchAdminData}
+            onClick={() => fetchAdminData(true)}
             className="flex items-center space-x-1.5 px-4 py-2 rounded-2xl bg-white border border-indigo-200 hover:border-[#4F46E5] text-[#1E1B4B] font-bold transition shadow-sm"
           >
             <RefreshCw className={`w-3.5 h-3.5 text-[#4F46E5] ${loading ? 'animate-spin' : ''}`} />
@@ -331,7 +329,7 @@ export default function AdminDashboardPage() {
 
             <div className="glass-card-frost rounded-2xl p-5 border-white space-y-1">
               <span className="text-xs text-[#64748B] font-bold uppercase block">Est. LLM Tokens</span>
-              <p className="text-3xl font-extrabold text-[#1E1B4B]">{(usage?.estimatedTokens || 184200).toLocaleString()}</p>
+              <p className="text-3xl font-extrabold text-[#1E1B4B]" suppressHydrationWarning>{(usage?.estimatedTokens || 184200).toLocaleString()}</p>
               <p className="text-[10px] text-[#64748B]">Prompt + completion</p>
             </div>
 
@@ -525,7 +523,75 @@ export default function AdminDashboardPage() {
       {/* TAB 4: OPERATIONS & AUDIT LOGS */}
       {activeTab === 'operations' && (
         <div className="space-y-6">
-          <div className="glass-card-frost rounded-3xl p-6 border-white space-y-4">
+          {/* Quick Decision Merge Tool */}
+          <div className="glass-card-frost rounded-3xl p-6 border-white space-y-4 shadow-sm">
+            <h3 className="text-sm font-sans font-extrabold text-[#1E1B4B] flex items-center gap-2">
+              <GitMerge className="w-4 h-4 text-[#4F46E5]" />
+              <span>Deduplicate & Merge Decisions</span>
+            </h3>
+            <p className="text-xs text-[#475569]">
+              Merge duplicate decisions identified across meetings into a single canonical decision ledger record.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <select
+                value={primaryId}
+                onChange={(e) => setPrimaryId(e.target.value)}
+                className="w-full sm:w-1/2 bg-white border border-indigo-200 rounded-xl px-3 py-2 text-xs text-[#1E1B4B] font-medium"
+              >
+                {decisions.map((d) => (
+                  <option key={d.id} value={d.id}>Keep: {d.title}</option>
+                ))}
+              </select>
+              <span className="text-xs font-mono font-bold text-[#64748B]">← MERGE ←</span>
+              <select
+                value={secondaryId}
+                onChange={(e) => setSecondaryId(e.target.value)}
+                className="w-full sm:w-1/2 bg-white border border-indigo-200 rounded-xl px-3 py-2 text-xs text-[#1E1B4B] font-medium"
+              >
+                {decisions.map((d) => (
+                  <option key={d.id} value={d.id}>Duplicate: {d.title}</option>
+                ))}
+              </select>
+              <button
+                onClick={handleMergeDecisions}
+                disabled={merging || primaryId === secondaryId}
+                className="px-4 py-2 rounded-xl btn-indigo-glow text-white font-bold text-xs shrink-0 disabled:opacity-50"
+              >
+                {merging ? 'Merging...' : 'Merge Decisions'}
+              </button>
+            </div>
+          </div>
+
+          {/* Integration Status & Revoke */}
+          <div className="glass-card-frost rounded-3xl p-6 border-white space-y-4 shadow-sm">
+            <h3 className="text-sm font-sans font-extrabold text-[#1E1B4B] flex items-center gap-2">
+              <KeyRound className="w-4 h-4 text-[#4F46E5]" />
+              <span>Connected Integration Credentials</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {integrations.map((item) => (
+                <div key={item.provider} className="p-4 rounded-2xl bg-white border border-indigo-100 flex items-center justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-[#1E1B4B]">{item.name}</h4>
+                    <span className={`text-[10px] font-mono font-bold ${item.enabled ? 'text-emerald-700' : 'text-rose-700'}`}>
+                      {item.status}
+                    </span>
+                  </div>
+                  {item.enabled && (
+                    <button
+                      onClick={() => handleRevokeIntegration(item.provider as any)}
+                      disabled={revokingProvider === item.provider}
+                      className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-mono text-[10px] font-bold transition"
+                    >
+                      {revokingProvider === item.provider ? 'Revoking...' : 'Revoke'}
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="glass-card-frost rounded-3xl p-6 border-white space-y-4 shadow-sm">
             <h3 className="text-sm font-sans font-extrabold text-[#1E1B4B] flex items-center gap-2">
               <History className="w-4 h-4 text-[#4F46E5]" />
               <span>Admin Operations Audit Trail</span>
@@ -539,7 +605,7 @@ export default function AdminDashboardPage() {
                     <span className="text-[#64748B] font-mono"> — {log.action} ({log.targetResource})</span>
                     <p className="text-[11px] text-[#475569]">{log.details}</p>
                   </div>
-                  <span className="text-[10px] font-mono text-[#64748B] shrink-0">{new Date(log.createdAt).toLocaleString()}</span>
+                  <span className="text-[10px] font-mono text-[#64748B] shrink-0" suppressHydrationWarning>{new Date(log.createdAt).toLocaleString()}</span>
                 </div>
               ))}
             </div>

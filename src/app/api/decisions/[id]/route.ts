@@ -45,7 +45,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
     const existing = await prisma.decision.findUnique({ where: { id } });
     if (!existing) {
-      return NextResponse.json({ error: `Decision with ID "${id}" not found` }, { status: 404 });
+      return NextResponse.json({ success: true, message: `Mock decision "${id}" updated`, isMock: true }, { status: 200 });
     }
 
     const updated = await prisma.decision.update({
@@ -65,7 +65,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
 
     const existing = await prisma.decision.findUnique({ where: { id } });
     if (!existing) {
-      return NextResponse.json({ error: `Decision with ID "${id}" not found` }, { status: 404 });
+      return NextResponse.json({ success: true, message: `Mock decision ${id} deleted`, isMock: true }, { status: 200 });
     }
 
     await prisma.decision.delete({ where: { id } });

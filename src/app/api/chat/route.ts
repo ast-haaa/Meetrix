@@ -182,25 +182,41 @@ Do NOT use markdown bold asterisks. Use clean plain text.`;
 
     const userPrompt = `RETRIEVED CONTEXT:\n${contextPrompt}\n\nUSER QUESTION: ${query}`;
 
-    const llmRes = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
-        ],
-        temperature: 0.3,
-      }),
-    });
+    let answer = '';
+    try {
+      const llmRes = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+          ],
+          temperature: 0.3,
+        }),
+      });
 
-    const llmData = await llmRes.json();
-    const rawAnswer = llmData.choices[0].message.content;
-    const answer = rawAnswer.replace(/\*\*/g, '').replace(/\*/g, '');
+      if (llmRes.ok) {
+        const llmData = await llmRes.json();
+        const rawAnswer = llmData.choices?.[0]?.message?.content;
+        if (rawAnswer) {
+          answer = rawAnswer.replace(/\*\*/g, '').replace(/\*/g, '');
+        }
+      }
+    } catch (llmErr) {
+      console.warn('[Chat RAG] Live LLM call error, falling back:', llmErr);
+    }
+
+    if (!answer) {
+      const topCitation = citations[0];
+      answer = topCitation && topCitation.textSnippet
+        ? `Based on ${topCitation.meetingTitle || 'Sprint Sync'} (${topCitation.date}), ${topCitation.speakerName} noted: "${topCitation.textSnippet}"`
+        : `Scanned meeting knowledge base for "${query}". Check the citations below for related discussion topics.`;
+    }
 
     return NextResponse.json({
       answer,

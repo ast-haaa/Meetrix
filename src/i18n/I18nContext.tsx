@@ -22,7 +22,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<SupportedLocale>('en');
 
   useEffect(() => {
-    const stored = localStorage.getItem('acme_app_locale') as SupportedLocale | null;
+    const stored = (localStorage.getItem('meetrix_app_locale') || localStorage.getItem('acme_app_locale')) as SupportedLocale | null;
     if (stored && (stored === 'en' || stored === 'hi')) {
       setLocaleState(stored);
     }
@@ -30,7 +30,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   const setLocale = (newLocale: SupportedLocale) => {
     setLocaleState(newLocale);
-    localStorage.setItem('acme_app_locale', newLocale);
+    localStorage.setItem('meetrix_app_locale', newLocale);
   };
 
   const t = (path: string): string => {

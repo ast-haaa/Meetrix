@@ -185,6 +185,22 @@ export default function AudioUploadPage() {
               ))}
             </div>
           </div>
+
+          <div className="pt-4 border-t border-indigo-100 flex items-center justify-between">
+            <Link
+              href="/meetings"
+              className="text-xs font-mono font-bold text-[#475569] hover:text-[#1E1B4B] transition"
+            >
+              ← Back to Meetings
+            </Link>
+            <Link
+              href={`/meetings/${resultMeeting.id}`}
+              className="px-5 py-2.5 rounded-2xl btn-indigo-glow text-white font-bold text-xs shadow-md transition flex items-center gap-1.5"
+            >
+              <span>Open Meeting Workspace</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       )}
     </div>

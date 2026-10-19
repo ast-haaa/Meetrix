@@ -238,7 +238,7 @@ export default function HomePage() {
       {/* ─────────────────────────────────────────────────────────────
           3. HERO SECTION (Executive Title + Stats + Interactive RAG Widget)
       ───────────────────────────────────────────────────────────── */}
-      <section className="relative pt-16 lg:pt-24 pb-16 px-6 max-w-5xl mx-auto text-center space-y-9 z-20">
+      <section className="relative pt-16 lg:pt-24 pb-16 px-6 max-w-6xl mx-auto w-full text-center space-y-9 z-20">
         
         {/* Tech Pill Badge */}
         <div className="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-xl border border-white text-xs font-mono font-bold text-[#3730A3] shadow-md animate-float-slow">
@@ -315,27 +315,80 @@ export default function HomePage() {
         </div>
 
         {/* Hero Performance Stats Bar */}
-        <div className="pt-8 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
-          <div className="p-4 rounded-2xl bg-white/80 border border-white shadow-sm space-y-1 hover:shadow-md transition">
-            <div className="text-2xl font-extrabold font-mono text-[#3730A3]">84.2%</div>
-            <div className="text-[11px] font-sans font-semibold text-[#475569]">Follow-Through Rate</div>
+        <div className="pt-8 max-w-6xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+          
+          {/* Stat 1: Follow-Through Rate */}
+          <div className="glass-card-elevated-frost rounded-3xl p-5 border-white shadow-md hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col justify-between group">
+            <div className="flex items-center justify-between pb-3 border-b border-indigo-100/80">
+              <div className="w-9 h-9 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[#4F46E5] group-hover:scale-110 transition duration-300 shadow-2xs">
+                <TrendingUp className="w-4 h-4" />
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-[10px] font-mono font-bold text-emerald-700 border border-emerald-200">
+                +12.4% MoM
+              </span>
+            </div>
+            <div className="pt-3 space-y-1">
+              <div className="text-3xl font-extrabold font-mono text-[#1E1B4B] tracking-tight">84.2%</div>
+              <div className="text-xs font-sans font-bold text-[#3730A3]">Follow-Through Rate</div>
+              <p className="text-[11px] font-sans text-[#64748B] leading-tight">Autonomous multi-sync resolution</p>
+            </div>
           </div>
-          <div className="p-4 rounded-2xl bg-white/80 border border-white shadow-sm space-y-1 hover:shadow-md transition">
-            <div className="text-2xl font-extrabold font-mono text-emerald-700">240ms</div>
-            <div className="text-[11px] font-sans font-semibold text-[#475569]">Decision Parse Latency</div>
+
+          {/* Stat 2: Decision Parse Latency */}
+          <div className="glass-card-elevated-frost rounded-3xl p-5 border-white shadow-md hover:shadow-xl hover:border-emerald-200 transition-all duration-300 flex flex-col justify-between group">
+            <div className="flex items-center justify-between pb-3 border-b border-indigo-100/80">
+              <div className="w-9 h-9 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition duration-300 shadow-2xs">
+                <Zap className="w-4 h-4" />
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-[10px] font-mono font-bold text-[#4338CA] border border-indigo-200">
+                Real-Time
+              </span>
+            </div>
+            <div className="pt-3 space-y-1">
+              <div className="text-3xl font-extrabold font-mono text-emerald-700 tracking-tight">240ms</div>
+              <div className="text-xs font-sans font-bold text-[#1E1B4B]">Decision Parse Latency</div>
+              <p className="text-[11px] font-sans text-[#64748B] leading-tight">Instant audio-to-Zod extraction</p>
+            </div>
           </div>
-          <div className="p-4 rounded-2xl bg-white/80 border border-white shadow-sm space-y-1 hover:shadow-md transition">
-            <div className="text-2xl font-extrabold font-mono text-[#3730A3]">100%</div>
-            <div className="text-[11px] font-sans font-semibold text-[#475569]">Zod Schema Validated</div>
+
+          {/* Stat 3: Zod Schema Validated */}
+          <div className="glass-card-elevated-frost rounded-3xl p-5 border-white shadow-md hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col justify-between group">
+            <div className="flex items-center justify-between pb-3 border-b border-indigo-100/80">
+              <div className="w-9 h-9 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[#4F46E5] group-hover:scale-110 transition duration-300 shadow-2xs">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-[10px] font-mono font-bold text-emerald-700 border border-emerald-200">
+                Zero Drift
+              </span>
+            </div>
+            <div className="pt-3 space-y-1">
+              <div className="text-3xl font-extrabold font-mono text-[#1E1B4B] tracking-tight">100%</div>
+              <div className="text-xs font-sans font-bold text-[#3730A3]">Zod Schema Validated</div>
+              <p className="text-[11px] font-sans text-[#64748B] leading-tight">Deterministic structured contracts</p>
+            </div>
           </div>
-          <div className="p-4 rounded-2xl bg-white/80 border border-white shadow-sm space-y-1 hover:shadow-md transition">
-            <div className="text-2xl font-extrabold font-mono text-[#4F46E5]">18</div>
-            <div className="text-[11px] font-sans font-semibold text-[#475569]">Active Tracked Owners</div>
+
+          {/* Stat 4: Active Tracked Owners */}
+          <div className="glass-card-elevated-frost rounded-3xl p-5 border-white shadow-md hover:shadow-xl hover:border-indigo-200 transition-all duration-300 flex flex-col justify-between group">
+            <div className="flex items-center justify-between pb-3 border-b border-indigo-100/80">
+              <div className="w-9 h-9 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-[#4F46E5] group-hover:scale-110 transition duration-300 shadow-2xs">
+                <Users className="w-4 h-4" />
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-[10px] font-mono font-bold text-[#4338CA] border border-indigo-200">
+                Multi-Tenant
+              </span>
+            </div>
+            <div className="pt-3 space-y-1">
+              <div className="text-3xl font-extrabold font-mono text-[#4F46E5] tracking-tight">18</div>
+              <div className="text-xs font-sans font-bold text-[#1E1B4B]">Active Tracked Owners</div>
+              <p className="text-[11px] font-sans text-[#64748B] leading-tight">Diarized speaker attribution</p>
+            </div>
           </div>
+
         </div>
 
         {/* Interactive RAG Semantic Search Query Studio */}
-        <div className="pt-4">
+        <div className="pt-4 max-w-6xl mx-auto w-full">
           <InteractiveRagQueryWidget />
         </div>
 
@@ -344,7 +397,19 @@ export default function HomePage() {
       {/* ─────────────────────────────────────────────────────────────
           4. LIVE AUDIO DIARIZATION STUDIO (Interactive Component A)
       ───────────────────────────────────────────────────────────── */}
-      <section className="py-10 px-6 max-w-6xl mx-auto w-full z-20">
+      <section className="py-16 px-6 max-w-6xl mx-auto w-full z-20 space-y-8">
+        <div className="text-center space-y-3">
+          <span className="px-4 py-1 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200">
+            SPEECH DIARIZATION ENGINE
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1E1B4B]">
+            Real-Time Multi-Speaker Audio Diarization
+          </h2>
+          <p className="text-sm font-sans text-[#475569] max-w-xl mx-auto font-medium">
+            Live Whisper v3 audio ingestion, precise speaker turn isolation, and instant decision extraction.
+          </p>
+        </div>
+
         <LiveAudioDiarizationStudio />
       </section>
 

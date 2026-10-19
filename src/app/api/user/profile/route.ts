@@ -20,7 +20,12 @@ export async function GET() {
       });
     }
 
-    const sessionObj = JSON.parse(sessionCookie);
+    let sessionObj: any;
+    try {
+      sessionObj = JSON.parse(sessionCookie);
+    } catch {
+      sessionObj = JSON.parse(decodeURIComponent(sessionCookie));
+    }
 
     let user = await prisma.user.findUnique({
       where: { email: sessionObj.email },
@@ -56,7 +61,12 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Missing session or name' }, { status: 400 });
     }
 
-    const sessionObj = JSON.parse(sessionCookie);
+    let sessionObj: any;
+    try {
+      sessionObj = JSON.parse(sessionCookie);
+    } catch {
+      sessionObj = JSON.parse(decodeURIComponent(sessionCookie));
+    }
 
     try {
       await prisma.user.update({

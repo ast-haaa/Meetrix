@@ -27,8 +27,13 @@ export function middleware(request: NextRequest) {
   // 2. Role-based Admin Route Gate: ONLY users with role === 'admin' allowed on /admin routes
   if (pathname.startsWith('/admin') && sessionUserCookie) {
     try {
-      const user = JSON.parse(sessionUserCookie);
-      const isAuthorizedAdmin = user.role?.toLowerCase() === 'admin';
+      let user: { role?: string } | null = null;
+      try {
+        user = JSON.parse(sessionUserCookie);
+      } catch {
+        user = JSON.parse(decodeURIComponent(sessionUserCookie));
+      }
+      const isAuthorizedAdmin = user?.role?.toLowerCase() === 'admin';
       if (!isAuthorizedAdmin) {
         return NextResponse.redirect(new URL('/dashboard', request.url));
       }

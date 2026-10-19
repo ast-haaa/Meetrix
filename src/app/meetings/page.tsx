@@ -1,10 +1,45 @@
+'use client';
+
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Mic, Upload, Play, Clock, Users, ArrowUpRight, Search, Sparkles, Radio } from 'lucide-react';
+import { Mic, Upload, Clock, Users, ArrowUpRight, Search, Radio } from 'lucide-react';
 import { MOCK_MEETINGS } from '@/lib/mockData';
 
 export default function MeetingsPage() {
+  const [meetings, setMeetings] = useState<any[]>(MOCK_MEETINGS);
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'ANALYZED' | 'PROCESSING'>('ALL');
+
+  useEffect(() => {
+    fetch('/api/meetings')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.meetings && data.meetings.length > 0) {
+          setMeetings(data.meetings);
+        }
+      })
+      .catch((err) => console.error('Failed to load meetings:', err));
+  }, []);
+
+  const filteredMeetings = useMemo(() => {
+    return meetings.filter((m) => {
+      const titleMatch = m.title.toLowerCase().includes(search.toLowerCase());
+      const descMatch = (m.description || m.summary || '').toLowerCase().includes(search.toLowerCase());
+      const matchesSearch = titleMatch || descMatch;
+
+      const matchesStatus =
+        statusFilter === 'ALL'
+          ? true
+          : statusFilter === 'ANALYZED'
+          ? m.status === 'ANALYZED' || m.status === 'COMPLETED'
+          : m.status === 'PROCESSING' || m.status === 'UPLOADING' || m.status === 'RECORDING';
+
+      return matchesSearch && matchesStatus;
+    });
+  }, [meetings, search, statusFilter]);
+
   return (
-    <div className="space-y-8 pb-24">
+    <div className="space-y-8 pb-24 font-sans select-none">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -42,19 +77,42 @@ export default function MeetingsPage() {
           <Search className="w-4 h-4 text-[#4F46E5] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search meetings by keyword, title or speaker..."
             className="w-full bg-indigo-50/50 border border-indigo-100 rounded-2xl pl-10 pr-4 py-2 text-xs text-[#1E1B4B] placeholder-[#64748B] focus:outline-none focus:border-[#4F46E5] focus:ring-2 focus:ring-[#4F46E5]/20 font-medium"
           />
         </div>
 
         <div className="flex items-center space-x-2 w-full sm:w-auto">
-          <button className="px-3.5 py-1.5 rounded-xl bg-[#4F46E5] text-white text-xs font-bold shadow-sm">
+          <button
+            onClick={() => setStatusFilter('ALL')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm ${
+              statusFilter === 'ALL'
+                ? 'bg-[#4F46E5] text-white'
+                : 'bg-indigo-50 text-[#3730A3] border border-indigo-200 hover:bg-indigo-100'
+            }`}
+          >
             All Statuses
           </button>
-          <button className="px-3.5 py-1.5 rounded-xl bg-indigo-50 text-[#3730A3] border border-indigo-200 text-xs font-bold hover:bg-indigo-100 transition">
+          <button
+            onClick={() => setStatusFilter('ANALYZED')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm ${
+              statusFilter === 'ANALYZED'
+                ? 'bg-[#4F46E5] text-white'
+                : 'bg-indigo-50 text-[#3730A3] border border-indigo-200 hover:bg-indigo-100'
+            }`}
+          >
             Analyzed
           </button>
-          <button className="px-3.5 py-1.5 rounded-xl bg-indigo-50 text-[#3730A3] border border-indigo-200 text-xs font-bold hover:bg-indigo-100 transition">
+          <button
+            onClick={() => setStatusFilter('PROCESSING')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition shadow-sm ${
+              statusFilter === 'PROCESSING'
+                ? 'bg-[#4F46E5] text-white'
+                : 'bg-indigo-50 text-[#3730A3] border border-indigo-200 hover:bg-indigo-100'
+            }`}
+          >
             Processing
           </button>
         </div>
@@ -62,7 +120,7 @@ export default function MeetingsPage() {
 
       {/* Meetings Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {MOCK_MEETINGS.map((meeting) => (
+        {filteredMeetings.map((meeting) => (
           <div
             key={meeting.id}
             className="glass-card-frost rounded-3xl p-6 space-y-4 border-white shadow-md hover:border-indigo-200 transition group flex flex-col justify-between"
@@ -73,7 +131,13 @@ export default function MeetingsPage() {
                   {meeting.status}
                 </span>
                 <span className="text-[11px] font-mono text-[#64748B]" suppressHydrationWarning>
-                  {(meeting as any).createdAt ? new Date((meeting as any).createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : (meeting as any).date || 'Jan 8, 2026'}
+                  {(meeting as any).createdAt
+                    ? new Date((meeting as any).createdAt).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })
+                    : (meeting as any).date || 'Recent'}
                 </span>
               </div>
 
@@ -82,7 +146,7 @@ export default function MeetingsPage() {
               </h2>
 
               <p className="text-xs text-[#475569] line-clamp-2 leading-relaxed font-medium">
-                {(meeting as any).summary}
+                {meeting.description || (meeting as any).summary || 'Diarized audio session.'}
               </p>
             </div>
 
@@ -90,11 +154,17 @@ export default function MeetingsPage() {
               <div className="flex items-center space-x-3 text-[#64748B]">
                 <span className="flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-[#4F46E5]" />
-                  <span>{(meeting as any).duration ? `${(meeting as any).duration}s` : '25 mins'}</span>
+                  <span>
+                    {meeting.durationSeconds
+                      ? `${Math.round(meeting.durationSeconds / 60)} mins`
+                      : (meeting as any).duration
+                      ? `${(meeting as any).duration}s`
+                      : '25 mins'}
+                  </span>
                 </span>
                 <span className="flex items-center gap-1">
                   <Users className="w-3.5 h-3.5 text-[#4F46E5]" />
-                  <span>{(meeting as any).speakers?.length || 2} speakers</span>
+                  <span>{meeting.speakers?.length || 2} speakers</span>
                 </span>
               </div>
 

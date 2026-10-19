@@ -34,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${fraunces.variable} ${jakarta.variable} ${mono.variable}`}>
-      <body className="bg-[#0B0D17] text-[#F8FAFC] min-h-screen flex antialiased font-sans selection:bg-[#6366F1]/20 selection:text-[#818CF8]">
+    <html lang="en" className={`dark ${fraunces.variable} ${jakarta.variable} ${mono.variable}`} suppressHydrationWarning>
+      <body className="bg-[#0B0D17] text-[#F8FAFC] min-h-screen flex antialiased font-sans selection:bg-[#6366F1]/20 selection:text-[#818CF8]" suppressHydrationWarning>
         <I18nProvider>
           <MainContentLayout>{children}</MainContentLayout>
           <MeetingAssistantWidget />

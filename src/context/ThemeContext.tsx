@@ -17,18 +17,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [resolvedTheme, setResolvedTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
-    // 1. Read stored preference or system preference
-    const stored = localStorage.getItem('acme_ledger_theme') as ThemeMode | null;
-    if (stored) {
-      setThemeState(stored);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setThemeState(prefersDark ? 'dark' : 'light');
-    }
-  }, []);
-
-  useEffect(() => {
     const root = document.documentElement;
+    const stored = (localStorage.getItem('meetrix_theme') || localStorage.getItem('acme_ledger_theme')) as ThemeMode | null;
+    let initialMode: ThemeMode = stored || 'dark';
+    if (!stored) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      initialMode = prefersDark ? 'dark' : 'light';
+    }
+    setThemeState(initialMode);
 
     const applyTheme = (mode: 'dark' | 'light') => {
       setResolvedTheme(mode);
@@ -41,22 +37,29 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    if (theme === 'system') {
+    if (initialMode === 'system') {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyTheme(prefersDark ? 'dark' : 'light');
-
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const listener = (e: MediaQueryListEvent) => applyTheme(e.matches ? 'dark' : 'light');
-      mediaQuery.addEventListener('change', listener);
-      return () => mediaQuery.removeEventListener('change', listener);
     } else {
-      applyTheme(theme);
+      applyTheme(initialMode);
     }
-  }, [theme]);
+  }, []);
 
   const setTheme = (newTheme: ThemeMode) => {
     setThemeState(newTheme);
-    localStorage.setItem('acme_ledger_theme', newTheme);
+    localStorage.setItem('meetrix_theme', newTheme);
+    const root = document.documentElement;
+    const resolved = newTheme === 'system'
+      ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      : newTheme;
+    setResolvedTheme(resolved);
+    if (resolved === 'light') {
+      root.classList.remove('dark');
+      root.classList.add('light');
+    } else {
+      root.classList.remove('light');
+      root.classList.add('dark');
+    }
   };
 
   return (
