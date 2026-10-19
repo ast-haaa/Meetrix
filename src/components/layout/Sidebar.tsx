@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Zap,
   Radio,
+  Calendar,
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useI18n } from '@/i18n/I18nContext';
@@ -191,6 +192,14 @@ export function Sidebar() {
 
       {/* ── Ingest & Live CTAs ── */}
       <div className="px-4 pb-3 space-y-2">
+        <Link
+          href="/meetings/schedule"
+          className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-indigo-50 border border-indigo-200 text-[#3730A3] text-[12px] font-bold font-sans transition-all duration-200 group shadow-sm hover:bg-indigo-100"
+        >
+          <Calendar className="w-3.5 h-3.5 text-[#4F46E5] shrink-0" />
+          <span>Schedule & Allot Work</span>
+        </Link>
+
         <Link
           href="/meetings/live"
           className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-[12px] font-bold font-sans transition-all duration-200 group shadow-sm hover:bg-rose-100"

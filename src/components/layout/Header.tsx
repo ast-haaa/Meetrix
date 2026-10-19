@@ -21,6 +21,7 @@ import {
   Radio,
   LogIn,
   UserPlus,
+  Calendar,
 } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nContext';
 import { triggerGuestFreeze } from '@/components/guest/GuestModeBanner';
@@ -221,7 +222,16 @@ export function Header() {
         </div>
 
         {/* Header Right Actions */}
-        <div className="flex items-center space-x-3" ref={menuRef}>
+        <div className="flex items-center space-x-2.5" ref={menuRef}>
+          {/* Schedule Meeting & Allot Work CTA */}
+          <Link
+            href="/meetings/schedule"
+            className="hidden md:flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-[#3730A3] font-bold text-xs font-sans transition shadow-2xs"
+          >
+            <Calendar className="w-3.5 h-3.5 text-[#4F46E5]" />
+            <span>Schedule & Tasks</span>
+          </Link>
+
           {/* Live Meeting CTA */}
           <Link
             href="/meetings/live"

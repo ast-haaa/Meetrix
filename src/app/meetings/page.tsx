@@ -2,13 +2,15 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { Mic, Upload, Clock, Users, ArrowUpRight, Search, Radio } from 'lucide-react';
+import { Mic, Upload, Clock, Users, ArrowUpRight, Search, Radio, Calendar, Plus } from 'lucide-react';
 import { MOCK_MEETINGS } from '@/lib/mockData';
+import { ScheduleMeetingModal } from '@/components/meetings/ScheduleMeetingModal';
 
 export default function MeetingsPage() {
   const [meetings, setMeetings] = useState<any[]>(MOCK_MEETINGS);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'ANALYZED' | 'PROCESSING'>('ALL');
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
 
   useEffect(() => {
     fetch('/api/meetings')
@@ -52,7 +54,15 @@ export default function MeetingsPage() {
           </p>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={() => setShowScheduleModal(true)}
+            className="flex items-center space-x-2 px-4 py-2.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-[#3730A3] font-bold text-xs shadow-sm transition"
+          >
+            <Calendar className="w-4 h-4 text-[#4F46E5]" />
+            <span>Schedule & Allot Work</span>
+          </button>
+
           <Link
             href="/meetings/live"
             className="flex items-center space-x-2 px-4 py-2.5 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-800 font-bold text-xs shadow-sm transition"
@@ -179,6 +189,17 @@ export default function MeetingsPage() {
           </div>
         ))}
       </div>
+
+      {/* Schedule Meeting & Team Work Allotment Modal */}
+      <ScheduleMeetingModal
+        isOpen={showScheduleModal}
+        onClose={() => setShowScheduleModal(false)}
+        onSuccess={(newMtg) => {
+          if (newMtg) {
+            setMeetings((prev) => [newMtg, ...prev]);
+          }
+        }}
+      />
     </div>
   );
 }

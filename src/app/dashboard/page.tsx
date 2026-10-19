@@ -26,8 +26,10 @@ import {
   X,
   Filter,
 } from 'lucide-react';
+import { ScheduleMeetingModal } from '@/components/meetings/ScheduleMeetingModal';
 
 export default function DashboardPage() {
+  const [showScheduleModal, setShowScheduleModal] = useState<boolean>(false);
   const [activeTimeView, setActiveTimeView] = useState<'day' | 'week' | 'month'>('week');
   const [selectedTeamFilter, setSelectedTeamFilter] = useState<string>('All Teams');
   const [showFilterDrawer, setShowFilterDrawer] = useState<boolean>(false);
@@ -146,8 +148,16 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        {/* Time View Filter Pills & Slider Drawer */}
-        <div className="flex items-center space-x-2">
+        {/* Time View Filter Pills & Schedule Meeting CTA */}
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={() => setShowScheduleModal(true)}
+            className="px-4 py-2 rounded-full btn-indigo-glow text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-md hover:scale-[1.02]"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>Schedule & Allot Work</span>
+          </button>
+
           <div className="flex items-center p-1 rounded-full bg-white/90 border border-indigo-200 shadow-sm">
             {(['day', 'week', 'month'] as const).map((view) => (
               <button
@@ -269,8 +279,12 @@ export default function DashboardPage() {
             >
               Join Now
             </Link>
-            <button className="px-4 py-2.5 rounded-full bg-white border border-indigo-200 text-xs font-bold text-[#1E1B4B] hover:bg-indigo-50 transition">
-              Edit
+            <button
+              onClick={() => setShowScheduleModal(true)}
+              className="px-4 py-2.5 rounded-full bg-white border border-indigo-200 text-xs font-bold text-[#3730A3] hover:bg-indigo-50 transition flex items-center gap-1.5 shadow-2xs"
+            >
+              <Plus className="w-3.5 h-3.5 text-[#4F46E5]" />
+              <span>Allot Work</span>
             </button>
             <button className="px-4 py-2.5 rounded-full bg-white border border-rose-200 text-xs font-bold text-rose-700 hover:bg-rose-50 transition">
               Cancel
@@ -397,6 +411,12 @@ export default function DashboardPage() {
           <p className="text-xs text-[#64748B] font-medium">Zod parsed & owner assigned</p>
         </div>
       </div>
+
+      {/* Schedule Meeting & Team Work Allotment Modal */}
+      <ScheduleMeetingModal
+        isOpen={showScheduleModal}
+        onClose={() => setShowScheduleModal(false)}
+      />
     </div>
   );
 }
