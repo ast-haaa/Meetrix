@@ -4,7 +4,7 @@
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 - 🔴 **Live Recording & Audio Ingestion**: Real-time microphone audio capture with background micro-chunking (10s, 12s, 15s intervals) and raw audio stream concatenation.
 - 🗣️ **OpenAI Whisper API & Speaker Diarization**: High-accuracy speech-to-text transcript processing with automatic speaker attribution.
