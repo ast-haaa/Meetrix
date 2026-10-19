@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
 import { MOCK_MEETINGS, MOCK_ACTION_ITEMS, MOCK_DECISIONS, MOCK_OWNERS } from '@/lib/mockData';
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {

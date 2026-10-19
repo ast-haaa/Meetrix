@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
 import { CreateMeetingSchema } from '@/lib/validations';
 import { MOCK_MEETINGS } from '@/lib/mockData';
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {

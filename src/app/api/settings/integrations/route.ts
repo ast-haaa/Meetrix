@@ -11,6 +11,8 @@ const IntegrationConfigSchema = z.object({
   enabled: z.boolean().default(true),
 });
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     let org = await prisma.organization.findFirst();

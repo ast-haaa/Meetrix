@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { calculateTeamAccountability } from '@/lib/accountabilityService';
 import { prisma } from '@/lib/db/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const [accountabilityData, totalDecisions, activeActions] = await Promise.all([
