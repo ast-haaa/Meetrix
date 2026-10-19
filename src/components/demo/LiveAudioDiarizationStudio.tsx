@@ -33,7 +33,7 @@ export function LiveAudioDiarizationStudio() {
           <div className="w-3 h-3 rounded-full bg-amber-400" />
           <div className="w-3 h-3 rounded-full bg-emerald-400" />
           <span className="text-xs font-mono font-bold text-[#4338CA] ml-2">
-            Meetrix Diarization & Speech Studio v2.4
+            Meetrix Diarization & Speech Studio
           </span>
         </div>
 

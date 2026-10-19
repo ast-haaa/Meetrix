@@ -20,12 +20,13 @@ export async function POST(request: Request) {
 
     const configuredAdminEmail = (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
     const isInitialAdminEmail = (configuredAdminEmail && email === configuredAdminEmail) || email === 'admin@meetrix.ai';
+    const isGuestUser = email === 'guest@meetrix.ai' || email.toLowerCase().includes('guest');
 
     let userData = {
-      id: 'usr-101',
+      id: isGuestUser ? 'usr-guest' : 'usr-101',
       email: email,
-      name: name || email.split('@')[0],
-      role: isInitialAdminEmail ? 'admin' : 'member',
+      name: isGuestUser ? 'Guest User' : (name || email.split('@')[0]),
+      role: isGuestUser ? 'guest' : (isInitialAdminEmail ? 'admin' : 'member'),
     };
 
     try {
@@ -44,11 +45,11 @@ export async function POST(request: Request) {
           });
         }
 
-        const assignedRole = isInitialAdminEmail ? 'ADMIN' : 'MEMBER';
+        const assignedRole = isGuestUser ? 'MEMBER' : (isInitialAdminEmail ? 'ADMIN' : 'MEMBER');
 
         const owner = await prisma.owner.create({
           data: {
-            name: name || email.split('@')[0],
+            name: isGuestUser ? 'Guest User' : (name || email.split('@')[0]),
             email: email,
             organizationId: org.id,
             role: assignedRole,
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
         user = await prisma.user.create({
           data: {
             email,
-            name: name || email.split('@')[0],
+            name: isGuestUser ? 'Guest User' : (name || email.split('@')[0]),
             role: assignedRole,
           },
         });
@@ -81,8 +82,8 @@ export async function POST(request: Request) {
       userData = {
         id: user.id,
         email: user.email,
-        name: user.name || email.split('@')[0],
-        role: user.role.toLowerCase(),
+        name: isGuestUser ? 'Guest User' : (user.name || email.split('@')[0]),
+        role: isGuestUser ? 'guest' : user.role.toLowerCase(),
       };
     } catch (dbErr) {
       console.warn('Prisma DB lookup warning, proceeding with session auth:', dbErr);

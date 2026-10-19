@@ -18,6 +18,7 @@ import {
   Volume2,
 } from 'lucide-react';
 import { PreMeetingBriefingCard } from '@/components/meetings/PreMeetingBriefingCard';
+import { triggerGuestFreeze } from '@/components/guest/GuestModeBanner';
 
 export default function LiveMeetingPage() {
   const router = useRouter();
@@ -65,6 +66,7 @@ export default function LiveMeetingPage() {
 
   // Start Live Meeting Session
   const handleStartRecording = async () => {
+    if (triggerGuestFreeze('Live Meeting Recording')) return;
     setMicPermissionError(null);
     try {
       // 1. Initialize DB meeting session record

@@ -55,7 +55,7 @@ export function StitchThreadVisualizer() {
           <div className="w-3 h-3 rounded-full bg-amber-400" />
           <div className="w-3 h-3 rounded-full bg-emerald-400" />
           <span className="text-xs font-mono font-bold text-[#4338CA] ml-2">
-            Meetrix Cross-Meeting Stitch Engine v2.4
+            Meetrix Cross-Meeting Stitch Engine
           </span>
         </div>
 

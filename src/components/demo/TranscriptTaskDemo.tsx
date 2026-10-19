@@ -21,7 +21,7 @@ export function TranscriptTaskDemo() {
           <div className="w-3 h-3 rounded-full bg-rose-400" />
           <div className="w-3 h-3 rounded-full bg-amber-400" />
           <div className="w-3 h-3 rounded-full bg-emerald-400" />
-          <span className="text-xs font-mono font-bold text-[#4338CA] ml-2">Meetrix Decision Extraction Pipeline v2.4</span>
+          <span className="text-xs font-mono font-bold text-[#4338CA] ml-2">Meetrix Decision Extraction Pipeline</span>
         </div>
 
         <button

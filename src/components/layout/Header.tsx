@@ -23,6 +23,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { useI18n } from '@/i18n/I18nContext';
+import { triggerGuestFreeze } from '@/components/guest/GuestModeBanner';
 
 export function Header() {
   const pathname = usePathname();
@@ -98,6 +99,7 @@ export function Header() {
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (triggerGuestFreeze('Profile Updating')) return;
     setSavingProfile(true);
     try {
       const res = await fetch('/api/user/profile', {
@@ -343,8 +345,12 @@ export function Header() {
                     <h4 className="text-base font-sans font-bold text-[#1E1B4B] truncate">{user.name}</h4>
                     <p className="text-xs font-mono text-[#64748B] truncate">{user.email}</p>
                     <div className="flex items-center gap-1.5 pt-0.5">
-                      <span className="inline-block text-[9px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-[#3730A3] border border-indigo-200">
-                        {user.role.toUpperCase()}
+                      <span className={`inline-block text-[9px] font-mono font-bold px-2.5 py-0.5 rounded-full ${
+                        user.role === 'guest' || user.email?.includes('guest')
+                          ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                          : 'bg-indigo-50 text-[#3730A3] border border-indigo-200'
+                      }`}>
+                        {user.role === 'guest' || user.email?.includes('guest') ? 'GUEST (VIEW ONLY)' : user.role.toUpperCase()}
                       </span>
                       <span className="text-[10px] font-mono text-[#64748B] truncate">
                         • {user.organization}

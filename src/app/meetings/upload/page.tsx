@@ -6,6 +6,7 @@ import { Upload, FileAudio, Sparkles, CheckCircle2, Loader2, ArrowRight, GitComm
 import Link from 'next/link';
 import { MeetingDTO } from '@/types';
 import { PreMeetingBriefingCard } from '@/components/meetings/PreMeetingBriefingCard';
+import { triggerGuestFreeze } from '@/components/guest/GuestModeBanner';
 
 export default function AudioUploadPage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function AudioUploadPage() {
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (triggerGuestFreeze('Meeting Audio Ingestion')) return;
     if (!file) return;
 
     setIsProcessing(true);

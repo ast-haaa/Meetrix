@@ -45,39 +45,39 @@ import { InteractiveRagQueryWidget } from '@/components/demo/InteractiveRagQuery
 const WORKFLOW_FEATURES = [
   {
     icon: Mic,
-    title: 'Diarized Speech Memory',
-    desc: 'Whisper-stt speech recognition with precise multi-speaker diarization, sentiment tracking, and exact audio timestamps.',
-    tag: 'Whisper v3',
+    title: 'Speaker Recognition',
+    desc: 'Tells speakers apart automatically and marks who said what with exact timestamps.',
+    tag: 'Voice AI',
   },
   {
     icon: Zap,
-    title: 'Automatic Decision Extraction',
-    desc: 'LLM Zod JSON extraction parsing explicit commitments, assigned task owners, and structural meeting context.',
-    tag: 'Zod Parsed',
+    title: 'Automatic Action Items',
+    desc: 'Picks out decisions and promises from your conversation and creates clear tasks.',
+    tag: 'Instant Tasks',
   },
   {
     icon: Award,
-    title: 'Owner Reliability Index',
-    desc: 'Automated follow-through calculation tracking completion ratios and decision velocity per team member.',
-    tag: 'Live Scoring',
+    title: 'Follow-Through Scores',
+    desc: 'Shows how often team members finish what they promised on time.',
+    tag: 'Scorecards',
   },
   {
     icon: GitCommit,
-    title: 'Cross-Meeting Stitch Threads',
-    desc: 'Visual timeline stitching where a decision originated to how it was reviewed or closed in subsequent syncs.',
-    tag: 'Audit Trail',
+    title: 'Meeting-to-Meeting History',
+    desc: 'Connects tasks across meetings so nothing slips through the cracks over time.',
+    tag: 'Timeline',
   },
   {
     icon: Database,
-    title: 'RAG Vector Search',
-    desc: 'Semantic search indexing past transcripts with exact meeting title, date, speaker, and timestamp citations.',
-    tag: 'pgvector RAG',
+    title: 'Smart Meeting Search',
+    desc: 'Ask questions in plain English to quickly find what was decided and who owns it.',
+    tag: 'Quick Search',
   },
   {
     icon: ShieldCheck,
-    title: 'Enterprise RBAC & Webhooks',
-    desc: 'Slack, Jira, and Linear webhooks with encrypted credentials and granular role-based workspace access.',
-    tag: 'SOC2 Ready',
+    title: 'Slack & Jira Sync',
+    desc: 'Sends action items straight to your team channels and project boards.',
+    tag: 'Easy Integrations',
   },
 ];
 
@@ -398,10 +398,12 @@ export default function HomePage() {
           4. LIVE AUDIO DIARIZATION STUDIO (Interactive Component A)
       ───────────────────────────────────────────────────────────── */}
       <section className="py-16 px-6 max-w-6xl mx-auto w-full z-20 space-y-8">
-        <div className="text-center space-y-3">
-          <span className="px-4 py-1 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200">
-            SPEECH DIARIZATION ENGINE
-          </span>
+        <div className="text-center space-y-4">
+          <div className="inline-block mb-1 sm:mb-2">
+            <span className="px-4 py-1.5 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200 shadow-2xs">
+              SPEECH DIARIZATION ENGINE
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1E1B4B]">
             Real-Time Multi-Speaker Audio Diarization
           </h2>
@@ -442,10 +444,12 @@ export default function HomePage() {
           6. CROSS-MEETING STITCH TIMELINE (Interactive Component B)
       ───────────────────────────────────────────────────────────── */}
       <section className="py-16 px-6 max-w-6xl mx-auto w-full z-20 space-y-8">
-        <div className="text-center space-y-3">
-          <span className="px-4 py-1 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200">
-            AUDIT TRAIL STITCHING
-          </span>
+        <div className="text-center space-y-4">
+          <div className="inline-block mb-1 sm:mb-2">
+            <span className="px-4 py-1.5 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200 shadow-2xs">
+              AUDIT TRAIL STITCHING
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1E1B4B]">
             Track Decisions Across Sequential Team Syncs
           </h2>
@@ -461,10 +465,12 @@ export default function HomePage() {
           7. SIGNATURE INTERACTIVE DEMO SECTION
       ───────────────────────────────────────────────────────────── */}
       <section id="demo" className="py-16 px-6 max-w-6xl mx-auto w-full z-20 space-y-10">
-        <div className="text-center space-y-3">
-          <span className="px-4 py-1 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200">
-            LIVE EXTRACTION ENGINE PIPELINE
-          </span>
+        <div className="text-center space-y-4">
+          <div className="inline-block mb-1 sm:mb-2">
+            <span className="px-4 py-1.5 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200 shadow-2xs">
+              LIVE EXTRACTION ENGINE PIPELINE
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1E1B4B]">
             Watch Spoken Words Turn into Owned Task Cards
           </h2>
@@ -480,10 +486,12 @@ export default function HomePage() {
           8. CAPABILITIES & FEATURES GRID
       ───────────────────────────────────────────────────────────── */}
       <section id="capabilities" className="py-20 px-6 max-w-6xl mx-auto w-full z-20 space-y-12">
-        <div className="text-center space-y-3">
-          <span className="px-4 py-1 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200">
-            CORE ENGINE ARCHITECTURE
-          </span>
+        <div className="text-center space-y-4">
+          <div className="inline-block mb-1 sm:mb-2">
+            <span className="px-4 py-1.5 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200 shadow-2xs">
+              CORE ENGINE ARCHITECTURE
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1E1B4B]">
             Built specifically for meeting memory & owner follow-through.
           </h2>
@@ -524,9 +532,11 @@ export default function HomePage() {
       ───────────────────────────────────────────────────────────── */}
       <section id="accountability" className="py-20 px-6 max-w-6xl mx-auto w-full z-20 space-y-12">
         <div className="text-center space-y-4">
-          <span className="px-4 py-1 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200">
-            AUTONOMOUS OWNER ACCOUNTABILITY
-          </span>
+          <div className="inline-block mb-1 sm:mb-2">
+            <span className="px-4 py-1.5 rounded-full bg-indigo-100 text-xs font-mono font-bold text-[#4338CA] uppercase tracking-wider border border-indigo-200 shadow-2xs">
+              AUTONOMOUS OWNER ACCOUNTABILITY
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-5xl font-sans font-extrabold text-[#1E1B4B]">
             Real-Time Follow-Through Index & Decision Audit
           </h2>
@@ -656,11 +666,13 @@ export default function HomePage() {
       ───────────────────────────────────────────────────────────── */}
       <section id="auth-section" className="py-20 px-6 max-w-md mx-auto w-full z-20">
         <div className="glass-card-elevated-frost rounded-3xl p-8 shadow-2xl space-y-6 relative border-white">
-          <div className="space-y-2 text-center">
-            <span className="px-3 py-1 rounded-full bg-indigo-100 text-[10px] font-mono font-bold text-[#4338CA] uppercase">
-              {authMode === 'forgot' ? 'PASSWORD RECOVERY' : authMode === 'signin' ? 'AUTHENTICATION' : 'REGISTRATION'}
-            </span>
-            <h2 className="text-2xl font-sans font-extrabold text-[#1E1B4B] pt-1">
+          <div className="space-y-3 text-center">
+            <div className="inline-block mb-1">
+              <span className="px-3.5 py-1 rounded-full bg-indigo-100 text-[10px] font-mono font-bold text-[#4338CA] uppercase border border-indigo-200 shadow-2xs">
+                {authMode === 'forgot' ? 'PASSWORD RECOVERY' : authMode === 'signin' ? 'AUTHENTICATION' : 'REGISTRATION'}
+              </span>
+            </div>
+            <h2 className="text-2xl font-sans font-extrabold text-[#1E1B4B]">
               {authMode === 'forgot' ? 'Reset Password' : authMode === 'signin' ? 'Welcome Back' : 'Create Meetrix Account'}
             </h2>
             <p className="text-xs font-sans text-[#475569] font-medium">

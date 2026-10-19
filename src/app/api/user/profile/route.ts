@@ -31,17 +31,20 @@ export async function GET() {
       where: { email: sessionObj.email },
     });
 
-    const displayName = user?.name || sessionObj.name || sessionObj.email.split('@')[0];
+    const isGuest = sessionObj.email === 'guest@meetrix.ai' || sessionObj.role === 'guest' || sessionObj.email?.toLowerCase().includes('guest');
+    const roleString = isGuest ? 'guest' : (user?.role?.toLowerCase() || sessionObj.role);
+    const displayName = isGuest ? 'Guest User' : (user?.name || sessionObj.name || sessionObj.email.split('@')[0]);
     const initials = displayName.charAt(0).toUpperCase();
 
     return NextResponse.json({
       user: {
-        id: user?.id || sessionObj.id,
+        id: isGuest ? 'usr-guest' : (user?.id || sessionObj.id),
         name: displayName,
         email: user?.email || sessionObj.email,
-        role: user?.role?.toLowerCase() || sessionObj.role,
+        role: roleString,
+        isGuest: isGuest,
         initials: initials,
-        organization: 'Meetrix Workspace',
+        organization: isGuest ? 'Meetrix Workspace (Preview)' : 'Meetrix Workspace',
       },
     });
   } catch (error: any) {
